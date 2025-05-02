@@ -1,6 +1,6 @@
 # XPassWords
 
-Vous pouvez également télécharger l'extension depuis le Chrome Web Store : [XPassWords](https://chrome.google.com/webstore/detail/xpasswords/)
+Vous pouvez également télécharger l'extension depuis le Chrome Web Store : [XPassWords](https://chromewebstore.google.com/detail/xpasswords/aeghbmkkeikcdanooblnneibjndggoah?authuser=0&hl=fr)
 
 ## Description
 
