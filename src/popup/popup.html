@@ -1,203 +1,140 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>XPassWords</title>
-    <style>
-      body {
-        font-family: "Segoe UI", Arial, sans-serif;
-        background: #181c24;
-        color: #fff;
-        margin: 0;
-        padding: 0 0 16px 0;
-        width: 270px;
-        border-radius: 12px;
-        box-shadow: 0 2px 16px #0004;
-      }
-      .container {
-        padding: 20px 18px 10px 18px;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-      }
-      h2 {
-        text-align: center;
-        margin-bottom: 18px;
-        letter-spacing: 1px;
-        color: #ffb300;
-      }
-      label {
-        font-size: 0.98em;
-        margin-right: 8px;
-      }
-      .options {
-        display: flex;
-        justify-content: space-between;
-        margin: 10px 0 12px 0;
-      }
-      .options label {
-        margin-right: 0;
-      }
-      #password {
-        background: #23283a;
-        color: #ffb300;
-        font-size: 1.2em;
-        padding: 10px;
-        border-radius: 6px;
-        margin: 12px 0;
-        text-align: center;
-        letter-spacing: 1.5px;
-        user-select: all;
-        min-height: 24px;
-        word-break: break-all;
-      }
-      .btn {
-        background: linear-gradient(90deg, #ffb300 60%, #ff6f00 100%);
-        color: #181c24;
-        border: none;
-        border-radius: 6px;
-        padding: 10px;
-        font-size: 1em;
-        margin-bottom: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: background 0.2s;
-      }
-      .btn:active {
-        background: linear-gradient(90deg, #ff6f00 60%, #ffb300 100%);
-      }
-      .row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 8px;
-      }
-      .footer-links {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 8px;
-        gap: 10px;
-      }
-      .footer-btn {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        background: #23283a;
-        color: #fff;
-        border: none;
-        border-radius: 6px;
-        padding: 6px 12px;
-        font-size: 0.98em;
-        text-decoration: none;
-        font-weight: 500;
-        transition: background 0.2s, color 0.2s;
-      }
-      .footer-btn:hover {
-        background: #ffb300;
-        color: #181c24;
-      }
-      .footer-btn svg {
-        vertical-align: middle;
-        height: 1.1em;
-        width: 1.1em;
-      }
-      input[type="number"] {
-        width: 50px;
-        border-radius: 4px;
-        border: none;
-        padding: 4px 6px;
-        font-size: 1em;
-        background: #23283a;
-        color: #fff;
-        margin-left: 8px;
-      }
-      input[type="checkbox"] {
-        accent-color: #ffb300;
-        width: 16px;
-        height: 16px;
-        margin-right: 4px;
-      }
-    </style>
+    <link rel="stylesheet" href="popup.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
-    <div class="container">
-      <h2>XPassWords</h2>
-      <div class="row">
-        <label for="length">Longueur :</label>
-        <input
-          type="range"
-          id="length"
-          min="6"
-          max="50"
-          value="21"
-          style="flex: 1; margin: 0 8px"
-        />
-        <span id="length-value" style="min-width: 2em; text-align: right"
-          >21</span
-        >
-      </div>
-      <div class="options">
-        <label
-          ><input type="checkbox" id="uppercase" checked />Majuscules</label
-        >
-        <label><input type="checkbox" id="numbers" checked />Chiffres</label>
-        <label><input type="checkbox" id="symbols" checked />Symboles</label>
-      </div>
-      <div id="password"></div>
-      <span
-        id="entropy"
-        style="
-          display: block;
-          text-align: center;
-          color: #aaa;
-          font-size: 0.95em;
-          margin-bottom: 8px;
-        "
-      ></span>
-      <button class="btn" id="generate">Générer</button>
-      <button class="btn" id="copy">Copier</button>
+  <body class="dark-mode">
+    <div class="app-wrapper">
+      <header class="app-header">
+        <div class="brand-group">
+          <div class="brand">
+            <h1>XPassWords</h1>
+            <span id="app-version" class="version-badge">v1.0</span>
+          </div>
+        </div>
+        <div class="header-controls">
+          <button id="theme-toggle" class="btn-text">Light Mode</button>
+        </div>
+      </header>
+
+      <main class="card">
+        <div class="settings-col">
+          <h2 class="section-title">CONFIGURATION</h2>
+
+          <div class="control-row">
+            <label class="control-label">Length</label>
+            <div class="slider-wrapper">
+              <input
+                type="range"
+                id="length-range"
+                min="4"
+                max="32"
+                value="16"
+              />
+              <input
+                type="number"
+                id="length-num"
+                value="16"
+                min="4"
+                max="32"
+              />
+            </div>
+          </div>
+
+          <div class="options-grid">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" id="uppercase" checked />
+              <span class="custom-check"></span>
+              <span>Uppercase</span>
+            </label>
+            <label class="checkbox-wrapper">
+              <input type="checkbox" id="numbers" checked />
+              <span class="custom-check"></span>
+              <span>Numbers</span>
+            </label>
+            <label class="checkbox-wrapper">
+              <input type="checkbox" id="symbols" checked />
+              <span class="custom-check"></span>
+              <span>Symbols</span>
+            </label>
+            <label class="checkbox-wrapper">
+              <input type="checkbox" id="exclude-ambiguous" />
+              <span class="custom-check"></span>
+              <span>No Ambiguous</span>
+            </label>
+            <label class="checkbox-wrapper">
+              <input type="checkbox" id="no-start-symbol" />
+              <span class="custom-check"></span>
+              <span>No Start Symbol</span>
+            </label>
+          </div>
+        </div>
+
+        <section class="output-col">
+          <div class="password-container">
+            <label class="section-label">GENERATED PASSWORD</label>
+            <div id="password-display" class="password-content"></div>
+            <button id="btn-copy" class="btn-icon" title="Copy">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path
+                  d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                ></path>
+              </svg>
+            </button>
+          </div>
+
+          <div id="entropy-display" class="entropy-badge">Entropy: 0 bits</div>
+
+          <button id="generate-btn" class="btn-primary btn-large">
+            GENERATE
+          </button>
+
+          <a
+            href="https://xpasswords.0x2.fun/"
+            target="_blank"
+            class="btn-secondary btn-large"
+          >
+            Open Web Version
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              style="margin-left: 5px; vertical-align: text-bottom"
+            >
+              <path
+                d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+              ></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </section>
+      </main>
+
       <div class="footer-links">
         <a
-          class="footer-btn"
-          href="https://github.com/lighscent/XPassWords"
+          href="https://github.com/lighscent/XPassWordsWeb"
           target="_blank"
-          title="GitHub"
+          class="footer-link"
+          >GitHub</a
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-github"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"
-            />
-          </svg>
-          GitHub
-        </a>
-        <a
-          class="footer-btn"
-          href="https://discord.com/ZRXN5nQy6N"
-          target="_blank"
-          title="Discord"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-discord"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"
-            />
-          </svg>
-          Discord
-        </a>
       </div>
     </div>
     <script src="popup.js"></script>

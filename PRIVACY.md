@@ -1,6 +1,6 @@
 # Règles de Confidentialité – XPassWords
 
-Dernière mise à jour : 2025-05-02
+Dernière mise à jour : 2025-12-22
 
 ## 1. Collecte de données
 
